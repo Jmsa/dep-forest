@@ -13,12 +13,13 @@ const log = (...args: any[]) => {
  * @param {Set<string>} visited - Tracks visited files to avoid circular dependencies.
  * @returns {number} The total dependency count for the given file.
  */
-function calculateDependencies(
+export function calculateDependencies(
   filePath: string,
-  visited: Set<string> = new Set()
+  visited: Set<string> = new Set(),
+  dependencyPaths: string[] = []
 ) {
   if (visited.has(filePath) || !fs.existsSync(filePath)) {
-    return { dependencyCount: 0, visited };
+    return { dependencyCount: 0, visited, dependencyPaths };
   }
 
   visited.add(filePath);
@@ -30,7 +31,6 @@ function calculateDependencies(
   });
 
   let dependencyCount = 0;
-  const dependencyPaths: string[] = [];
 
   ast.program.body.forEach((node: any) => {
     // Handle ESM imports
