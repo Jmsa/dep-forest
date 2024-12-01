@@ -5,6 +5,12 @@
   "repository": "https://github.com/Jmsa/dep-forest.git",
   "author": "James Abercrombie <jmsabercrombie88@gmail.com>",
   "license": "MIT",
+  "files": [
+    "dist/analyze.d.ts",
+    "dist/analyze.js",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
     "build": "tsc",
     "watch": "tsc --watch",
