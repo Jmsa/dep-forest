@@ -7,6 +7,11 @@ const log = (...args: any[]) => {
   console.log(chalk.green("[dep-forest]"), ...args);
 };
 
+const error = (...args: any[]) => {
+  const chalk = require("chalk");
+  console.error(chalk.red("[dep-forest]"), ...args);
+};
+
 /**
  * Recursively calculates dependencies for a file.
  * @param {string} filePath - The file to analyze.
@@ -127,7 +132,7 @@ if (require.main === module) {
   const args = process.argv.slice(2);
 
   if (args.length === 0) {
-    console.error("Usage: node analyze-dependencies.js <entry-file> [--deep]");
+    error("Usage: node analyze-dependencies.js <entry-file> [--deep]");
     process.exit(1);
   }
 
@@ -135,7 +140,7 @@ if (require.main === module) {
   const isDeepAnalysis = args.includes("--deep");
 
   if (!fs.existsSync(entryFilePath)) {
-    console.error(`File not found: ${entryFilePath}`);
+    error(`File not found: ${entryFilePath}`);
     process.exit(1);
   }
 
@@ -146,7 +151,7 @@ if (require.main === module) {
   log(">>>", "dependencies:", dependencyPaths);
 
   if (isDeepAnalysis) {
-    log("\nPerforming deep analysis of all dependencies...");
+    log(">>>", "Performing deep analysis of all dependencies...");
     const analyzedPaths = new Set<string>();
 
     for (const depPath of dependencyPaths) {
