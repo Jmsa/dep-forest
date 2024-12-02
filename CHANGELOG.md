@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://github.com/Jmsa/dep-forest/compare/v1.1.0...v1.2.0) (2024-12-02)
+
+
+### Features
+
+* better message grouping for dependency deep dives ([aa738cc](https://github.com/Jmsa/dep-forest/commit/aa738cc1a676d29625859eeb58f48658ddffc073))
+* deeper dep checking with recursion ([416649b](https://github.com/Jmsa/dep-forest/commit/416649bc09b12b6739f325106b345e22687500ab))
+
+
+### Bug Fixes
+
+* make sure the loggers all use the package name and same formatting ([c9eb8f2](https://github.com/Jmsa/dep-forest/commit/c9eb8f2f254c890558188e84831cd71696c16e05))
+
 ## [1.1.0](https://github.com/Jmsa/dep-forest/compare/v1.0.0...v1.1.0) (2024-12-02)
 
 
