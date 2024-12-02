@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.2.1](https://github.com/Jmsa/dep-forest/compare/v1.2.0...v1.2.1) (2024-12-02)
+
+
+### Bug Fixes
+
+* compile ts before releasing ([2346f94](https://github.com/Jmsa/dep-forest/commit/2346f941e32be9dbb8432b61142245185fbbd1b1))
+
 ## [1.2.0](https://github.com/Jmsa/dep-forest/compare/v1.1.0...v1.2.0) (2024-12-02)
 
 
