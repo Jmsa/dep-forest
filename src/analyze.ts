@@ -27,7 +27,7 @@ export function calculateDependencies(
   const code = fs.readFileSync(filePath, "utf-8");
   const ast = parse(code, {
     sourceType: "unambiguous",
-    plugins: ["typescript"], // Enables TypeScript parsing
+    plugins: ["typescript", "jsx"],
   });
 
   let dependencyCount = 0;
