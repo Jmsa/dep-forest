@@ -1,6 +1,6 @@
-# Dependency Forest 🌲 🌲 🌲
+# Dep-Forest 🌲 🌲 🌲
 
-`dependency-forest` is a tool for analyzing and visualizing the module dependencies in your JavaScript or TypeScript projects. Whether you're using ES Modules (`import`) or CommonJS (`require`), `dependency-forest` helps you count and track how many dependencies your code relies on, including their nested dependencies.
+`dep-forest`, aka "dependency-forest", is a tool for analyzing and visualizing the module dependencies in your JavaScript or TypeScript projects. Whether you're using ES Modules (`import`) or CommonJS (`require`), `dependency-forest` helps you count and track how many dependencies your code relies on, including their nested dependencies.
 
 Its name comes from the fact that we often think of file dependencies as a tree, or in some cases a forest. As the count of dependencies grows, so does the forest 🌲 🌲 🌲 and in many cases we want to know how many trees we're looking at. This is especially true if we start to see performance issues and want to know which files are most heavily relied on or pulled in as a part of an unexpected dependency tree.
 
@@ -20,22 +20,22 @@ You can install the package via npm or yarn:
 
 | NPM | Yarn |
 | --- | ---- |
-| `npm install --save-dev dependency-forest` | `yarn add -D dependency-forest` |
+| `npm install --save-dev dep-forest` | `yarn add -D dep-forest` |
 
 ## Usage
 
 ### CLI Usage
 
-`dependency-forest` comes with a command-line interface that allows you to analyze your project files.
+`dep-forest` comes with a command-line interface that allows you to analyze your project files.
 
 ```bash
-yarn dependency-forest <entry-file>
+yarn dep-forest <entry-file>
 ```
 
 For example when run against the examples in this repo:
 
 ```bash
-yarn dependency-forest ./examples/simple.js 
+yarn dep-forest ./examples/simple.js 
 [dep-forest] Total dependencies for /dep-forest/examples/simple.js: 3
 [dep-forest] >>> visited files: Set(2) {
   '/dep-forest/examples/simple.js',
@@ -57,10 +57,10 @@ As you can see this prints out a few things:
 
 ## Programmatic Usage
 
-You can also use dependency-forest programmatically in your own scripts:
+You can also use dep-forest programmatically in your own scripts:
 
 ```javascript
-const { calculateDependencies } = require('dependency-forest');
+const { calculateDependencies } = require('dep-forest');
 
 const filePath = './examples/simple.js'; // Path to your entry file
 const { dependencyCount, visited, dependencyPaths } = calculateDependencies(filePath);
