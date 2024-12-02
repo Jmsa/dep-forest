@@ -127,11 +127,13 @@ if (require.main === module) {
   const args = process.argv.slice(2);
 
   if (args.length === 0) {
-    console.error("Usage: node analyze-dependencies.js <entry-file>");
+    console.error("Usage: node analyze-dependencies.js <entry-file> [--deep]");
     process.exit(1);
   }
 
   const entryFilePath = path.resolve(args[0]);
+  const isDeepAnalysis = args.includes("--deep");
+
   if (!fs.existsSync(entryFilePath)) {
     console.error(`File not found: ${entryFilePath}`);
     process.exit(1);
@@ -142,6 +144,21 @@ if (require.main === module) {
   log(`Total dependencies for ${entryFilePath}: ${dependencyCount}`);
   log(">>>", "visited files:", visited);
   log(">>>", "dependencies:", dependencyPaths);
+
+  if (isDeepAnalysis) {
+    log("\nPerforming deep analysis of all dependencies...");
+    const analyzedPaths = new Set<string>();
+
+    for (const depPath of dependencyPaths) {
+      if (!analyzedPaths.has(depPath)) {
+        analyzedPaths.add(depPath);
+        const { dependencyCount: subCount, dependencyPaths: subPaths } =
+          calculateDependencies(depPath);
+        log(`\n${depPath}: ${subCount} dependencies`);
+        log(">>>", "sub-dependencies:", subPaths);
+      }
+    }
+  }
 }
 
 module.exports = { calculateDependencies };
