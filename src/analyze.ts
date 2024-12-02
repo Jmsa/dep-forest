@@ -29,6 +29,7 @@ export function calculateDependencies(
 
   visited.add(filePath);
 
+  // Read and parse the file
   const code = fs.readFileSync(filePath, "utf-8");
   const ast = parse(code, {
     sourceType: "unambiguous",
@@ -37,9 +38,9 @@ export function calculateDependencies(
 
   let dependencyCount = 0;
 
+  // Traverse the AST - this is where we find all the dependencies
   ast.program.body.forEach((node: any) => {
     // Handle ESM imports
-
     if (node.type === "ImportDeclaration") {
       const importPath = node.source.value;
       const resolvedPath = resolveModulePath(importPath, filePath);
@@ -127,6 +128,26 @@ function resolveModulePath(importPath: string, currentFilePath: string) {
   }
 }
 
+// Recursively analyze all dependencies - allowing for a full tree
+function analyzeDeep(filePath: string, analyzedPaths: Set<string> = new Set()) {
+  if (analyzedPaths.has(filePath)) {
+    return;
+  }
+
+  // Add the current file to the set of analyzed paths
+  analyzedPaths.add(filePath);
+
+  // Calculate the dependencies for the current file
+  const { dependencyCount, dependencyPaths } = calculateDependencies(filePath);
+  log(`\n${filePath}: ${dependencyCount} dependencies`);
+  log(">>>", "sub-dependencies:", dependencyPaths);
+
+  // Recursively analyze each dependency
+  for (const depPath of dependencyPaths) {
+    analyzeDeep(depPath, analyzedPaths);
+  }
+}
+
 // CLI Integration
 if (require.main === module) {
   const args = process.argv.slice(2);
@@ -136,6 +157,7 @@ if (require.main === module) {
     process.exit(1);
   }
 
+  // Grab options
   const entryFilePath = path.resolve(args[0]);
   const isDeepAnalysis = args.includes("--deep");
 
@@ -151,18 +173,8 @@ if (require.main === module) {
   log(">>>", "dependencies:", dependencyPaths);
 
   if (isDeepAnalysis) {
-    log(">>>", "Performing deep analysis of all dependencies...");
-    const analyzedPaths = new Set<string>();
-
-    for (const depPath of dependencyPaths) {
-      if (!analyzedPaths.has(depPath)) {
-        analyzedPaths.add(depPath);
-        const { dependencyCount: subCount, dependencyPaths: subPaths } =
-          calculateDependencies(depPath);
-        log(`\n${depPath}: ${subCount} dependencies`);
-        log(">>>", "sub-dependencies:", subPaths);
-      }
-    }
+    log(">>>", "Performing deep recursive analysis of all dependencies...");
+    analyzeDeep(entryFilePath);
   }
 }
 
