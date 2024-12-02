@@ -1,6 +1,6 @@
 # Dep-Forest 🌲 🌲 🌲
 
-`dep-forest`, aka "dependency-forest", is a tool for analyzing and visualizing the module dependencies in your JavaScript or TypeScript projects. Whether you're using ES Modules (`import`) or CommonJS (`require`), `dependency-forest` helps you count and track how many dependencies your code relies on, including their nested dependencies.
+`dep-forest`, aka "dependency-forest", is a tool for analyzing and visualizing the module dependencies in your JavaScript or TypeScript projects. Whether you're using ES Modules (`import`) or CommonJS (`require`), `dep-forest` helps you count and track how many dependencies your code relies on, including their nested dependencies.
 
 Its name comes from the fact that we often think of file dependencies as a tree, or in some cases a forest. As the count of dependencies grows, so does the forest 🌲 🌲 🌲 and in many cases we want to know how many trees we're looking at. This is especially true if we start to see performance issues and want to know which files are most heavily relied on or pulled in as a part of an unexpected dependency tree.
 
