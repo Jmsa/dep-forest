@@ -129,6 +129,8 @@ function analyzeDeep(filePath: string, analyzedPaths: Set<string> = new Set()) {
   // Add the current file to the set of analyzed paths
   analyzedPaths.add(filePath);
 
+  console.group(filePath);
+
   // Calculate the dependencies for the current file
   const { dependencyCount, dependencyPaths } = calculateDependencies(filePath);
   log(`\n${filePath}: ${dependencyCount} dependencies`);
@@ -138,6 +140,8 @@ function analyzeDeep(filePath: string, analyzedPaths: Set<string> = new Set()) {
   for (const depPath of dependencyPaths) {
     analyzeDeep(depPath, analyzedPaths);
   }
+
+  console.groupEnd();
 }
 
 // CLI Integration
