@@ -38,20 +38,23 @@ export function calculateDependencies(
 
   let dependencyCount = 0;
 
+  const addToDeps = (resolvedPath: string) => {
+    dependencyCount +=
+      1 + calculateDependencies(resolvedPath, visited).dependencyCount;
+    dependencyPaths.push(resolvedPath);
+  };
+
   // Traverse the AST - this is where we find all the dependencies
   ast.program.body.forEach((node: any) => {
-    // Handle ESM imports
-    if (node.type === "ImportDeclaration") {
+    const isESMImport = (node: any) => node.type === "ImportDeclaration"; // Handle ESM imports
+    const isCommonJSRequire = (node: any) =>
+      node.type === "VariableDeclaration"; // Handle CommonJS require in variable declarations
+
+    if (isESMImport(node)) {
       const importPath = node.source.value;
       const resolvedPath = resolveModulePath(importPath, filePath);
-
-      if (resolvedPath) {
-        dependencyCount +=
-          1 + calculateDependencies(resolvedPath, visited).dependencyCount;
-        dependencyPaths.push(resolvedPath);
-      }
-    } else if (node.type === "VariableDeclaration") {
-      // Handle CommonJS require in variable declarations
+      if (resolvedPath) addToDeps(resolvedPath);
+    } else if (isCommonJSRequire(node)) {
       // TODO: type this
       node.declarations.forEach((declarator: any) => {
         if (
@@ -64,13 +67,7 @@ export function calculateDependencies(
           if (arg && arg.type === "StringLiteral") {
             const requirePath = arg.value;
             const resolvedPath = resolveModulePath(requirePath, filePath);
-
-            if (resolvedPath) {
-              dependencyCount +=
-                1 +
-                calculateDependencies(resolvedPath, visited).dependencyCount;
-              dependencyPaths.push(resolvedPath);
-            }
+            if (resolvedPath) addToDeps(resolvedPath);
           }
         }
       });
@@ -85,12 +82,7 @@ export function calculateDependencies(
       if (arg && arg.type === "StringLiteral") {
         const requirePath = arg.value;
         const resolvedPath = resolveModulePath(requirePath, filePath);
-
-        if (resolvedPath) {
-          dependencyCount +=
-            1 + calculateDependencies(resolvedPath, visited).dependencyCount;
-          dependencyPaths.push(resolvedPath);
-        }
+        if (resolvedPath) addToDeps(resolvedPath);
       }
     }
   });
