@@ -16,7 +16,7 @@
     "watch": "tsc --watch",
     "clean": "rm -rf dist",
     "test": "jest",
-    "release": "yarn test && standard-version"
+    "release": "yarn test && yarn build && standard-version"
   },
   "dependencies": {
     "@babel/parser": "^7.26.2",
