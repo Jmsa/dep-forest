@@ -1,6 +1,6 @@
 {
   "name": "dep-forest",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "main": "dist/analyze.js",
   "repository": "https://github.com/Jmsa/dep-forest.git",
   "author": "James Abercrombie <jmsabercrombie88@gmail.com>",

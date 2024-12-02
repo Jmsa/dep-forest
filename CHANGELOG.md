@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.1.0](https://github.com/Jmsa/dep-forest/compare/v1.0.0...v1.1.0) (2024-12-02)
+
+
+### Features
+
+* add `--deep` option ([0be3e58](https://github.com/Jmsa/dep-forest/commit/0be3e58fbe8e14740010c4f9f8b331252bb68698))
+* support jsx parsing ([6651d43](https://github.com/Jmsa/dep-forest/commit/6651d4329b2be08281f11b69def82ca6d7ee07e7))
+
 ## 1.0.0 (2024-12-01)
 
 
